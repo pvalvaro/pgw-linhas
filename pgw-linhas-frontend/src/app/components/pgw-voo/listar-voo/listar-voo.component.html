@@ -1,0 +1,29 @@
+<div class = "row">
+    <h2> Lista de Voos</h2>
+</div>
+
+<table class = "table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th> Código</th>
+            <th> Partida </th>
+            <th> Chegada </th>
+            <th> Quantidade de Assentos </th>
+            <th> Status </th>
+            <th> Ações </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor = "let voo of voos" >
+            <td> {{ voo.codigoAviao }} </td>
+            <td> {{ voo.partida }} </td>
+            <td> {{ voo.chegada }} </td>
+            <td> {{ voo.totalAssentos }} </td>
+            <td> {{ voo.status }} </td>
+            <td>
+                <button  (click) = "alterarVoo(voo.vooId)" class = "btn btn-primary"> Alterar</button>
+                <button  (click) = "cancelarVoo(voo.vooId, voo)" class = "btn btn-danger" style="margin-left: 10px"> Cancelar</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

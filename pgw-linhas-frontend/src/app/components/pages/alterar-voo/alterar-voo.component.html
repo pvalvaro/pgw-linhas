@@ -1,0 +1,50 @@
+<div class="row">
+    <div class="card col-md-6 offset-md-3 offset-md-3">
+        <h3 class="text-center"> Alterar Voo </h3>
+        <div class="row">
+            <div class="card-body">
+                <form (ngSubmit)="alterarVoo()">
+            
+                    <div class="form-group">
+                        <label for="codigoAviao">Código Voo</label>
+                        <input disabled
+                            type="text"
+                            class="form-control"
+                            id="codigoAviao"
+                            required
+                            [(ngModel)]="voo.codigoAviao"
+                            name="codigoAviao"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="codigoAviao">Partida</label>
+                        <input
+                            type="date"
+                            class="form-control"
+                            id="partida"
+                            required
+                            [(ngModel)]="voo.partida"
+                            name="partida"
+                        />
+                    </div>
+                
+                    <div class="form-group">
+                        <label for="codigoAviao">Chegada</label>
+                        <input
+                            type="date"
+                            class="form-control"
+                            id="chegada"
+                            required
+                            [(ngModel)]="voo.chegada"
+                            name="chegada"
+                        />
+                    </div>
+                    <br />
+                    <button class="btn btn-success" type="submit">Alterar</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

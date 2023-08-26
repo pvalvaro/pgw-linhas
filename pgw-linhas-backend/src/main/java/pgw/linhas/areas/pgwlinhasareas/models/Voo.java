@@ -2,6 +2,7 @@ package pgw.linhas.areas.pgwlinhasareas.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 
 @Entity
@@ -14,9 +15,9 @@ public class Voo implements Serializable {
    @Column(nullable = false, length = 10, unique = true)
     private String codigoAviao;
     @Column(nullable = false)
-    private LocalDate partida;
+    private Timestamp partida;
     @Column(nullable = false)
-    private LocalDate chegada;
+    private Timestamp chegada;
     @Column(nullable = false)
     private Integer totalAssentos;
     @Column(nullable = false)
