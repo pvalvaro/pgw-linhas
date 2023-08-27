@@ -31,6 +31,15 @@ public class VooServiceImpl implements VooService {
         Voo vooAtualizacao = vooOptional.get();
         vooAtualizacao.setPartida(vooDto.getPartida());
         vooAtualizacao.setChegada(vooDto.getChegada());
+        vooAtualizacao.setQtdAssentoEconomica(vooDto.getQtdAssentoEconomica());
+        vooAtualizacao.setQtdAssentoPrimeira(vooDto.getQtdAssentoPrimeira());
+        vooAtualizacao.setQtdAssentoExecutiva(vooDto.getQtdAssentoExecutiva());
+        vooAtualizacao.setPrecoAssentoPrimeira(vooDto.getPrecoAssentoPrimeira());
+        vooAtualizacao.setPrecoAssentoEconomica(vooDto.getPrecoAssentoEconomica());
+        vooAtualizacao.setPrecoAssentoExecutiva(vooDto.getPrecoAssentoExecutiva());
+        vooAtualizacao.setEconomica(vooDto.isEconomica());
+        vooAtualizacao.setPrimeira(vooDto.isPrimeira());
+        vooAtualizacao.setExecutiva(vooDto.isExecutiva());
         return vooRepository.save(vooAtualizacao);
     }
     public List<VooDto> recuperarVoos(){

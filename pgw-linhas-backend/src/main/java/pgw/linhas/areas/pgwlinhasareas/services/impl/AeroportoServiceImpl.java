@@ -20,10 +20,16 @@ public class AeroportoServiceImpl implements AeroportoService {
     }
 
     @Transactional
-    public Aeroporto cadastrarAeroporto(AeroportoDto aeroportoDto) {
+    public List<Aeroporto> cadastrarAeroporto(List<AeroportoDto> aeroportoDtoList) {
+        List<Aeroporto> aeroportoList = new ArrayList<>();
         Aeroporto aeroporto = new Aeroporto();
-        BeanUtils.copyProperties(aeroportoDto, aeroporto);
-        return aeroportoRepository.save(aeroporto);
+        for(AeroportoDto aeroportoDto: aeroportoDtoList){
+            BeanUtils.copyProperties(aeroportoDto, aeroporto);
+            aeroporto = aeroportoRepository.save(aeroporto);
+            aeroportoList.add(aeroporto);
+            aeroporto = new Aeroporto();
+        }
+        return aeroportoList;
     }
 
     public List<AeroportoDto> recuperarAeroportos(){

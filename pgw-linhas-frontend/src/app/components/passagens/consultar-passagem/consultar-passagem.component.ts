@@ -4,13 +4,12 @@ import { PassagemService } from 'src/app/services/passagem/passagem.service';
 import { Voo } from 'src/app/models/voo.model';
 import { ActivatedRoute, Router } from '@angular/router';
 
-
 @Component({
-  selector: 'app-comprar-passagem',
-  templateUrl: './comprar-passagem.component.html',
-  styleUrls: ['./comprar-passagem.component.css']
+  selector: 'app-consultar-passagem',
+  templateUrl: './consultar-passagem.component.html',
+  styleUrls: ['./consultar-passagem.component.css']
 })
-export class ComprarPassagemComponent implements OnInit {
+export class ConsultarPassagemComponent implements OnInit {
 
   passagem: Passagem = {
     nomeComprador: '',
@@ -47,8 +46,6 @@ export class ComprarPassagemComponent implements OnInit {
   isADMIN = false;
   isZerado = true;
   contadorPassageiros?:number;
-
-  valor?:string;
 
   constructor(private passagemService: PassagemService,
      private router: Router, 
@@ -87,11 +84,26 @@ export class ComprarPassagemComponent implements OnInit {
     sessionStorage.removeItem('voo');
     this.habilitarFormCompra = false;
     this.router.navigate(['passagem-resumo']);  
-  }
+  }/*
 
-  formRepetitions: { campo: string }[] = [];
-  submitForm(index: number) {
-    console.log(`Formulário ${index + 1} enviado. Valor do campo: ${this.formRepetitions[index].campo}`);
+  calcularValores(){
+    let valorBagagemExtra = 0;
+    let totalBagagemExtra = 0;
+    if(this.vooEscolhido?.economica === this.passagem.classeEscolhida){
+      valorBagagemExtra = this.passagem.qtdBagagemExtra !== 0 ? this.calcularValor(this.vooEscolhido?.precoAssentoEconomica): 0;
+      
+      if(this.passagem.qtdBagagemExtra)
+        totalBagagemExtra = this.passagem.qtdBagagemExtra * valorBagagemExtra;
+        this.passagem.totalViagem = this.vooEscolhido.precoAssentoEconomica * this.passagem.qtdPassagens + totalBagagemExtra
+    }
+
+
+  }
+      */
+  calcularValor(valorClass: any){
+    let valor = valorClass;
+    let porc = valorClass * 0.1;
+    return valor + porc;
   }
 
   onSelectBlur() {
@@ -106,8 +118,8 @@ export class ComprarPassagemComponent implements OnInit {
     alert('Origem e destino não podem ser iguais');
   }
 
-  getCountArray(): number[] {
-    return Array(this.contadorPassageiros).fill(0).map((_, index) => index);
+  counterArray(count?: number): number[] {
+    return new Array(count);
   }
 
   pesquisarPassageiro() {
@@ -178,4 +190,5 @@ export class ComprarPassagemComponent implements OnInit {
     this.termoPesquisaCpf = '';
     this.termoPesquisaCodigo = '';
   }
+
 }

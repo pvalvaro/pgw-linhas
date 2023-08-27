@@ -1,10 +1,12 @@
 package pgw.linhas.areas.pgwlinhasareas.models;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 
+@Data
 @Entity
 @Table(name = "TB_VOOS")
 public class Voo implements Serializable {
@@ -26,11 +28,21 @@ public class Voo implements Serializable {
     private String origem;
     @Column(nullable = false)
     private String destino;
-
+    @Column(nullable = false)
+    private float valorAssento;
+    private boolean economica;
+    private boolean executiva;
+    private boolean primeira;
+    private Integer qtdAssentoPrimeira;
+    private Integer qtdAssentoExecutiva;
+    private Integer qtdAssentoEconomica;
+    private float precoAssentoPrimeira;
+    private float precoAssentoExecutiva;
+    private float precoAssentoEconomica;
     public Voo(){
     }
 
-    public Voo(long vooId, String codigoAviao, LocalDate partida, LocalDate chegada, Integer totalAssentos, String status, String origem, String destino) {
+    public Voo(long vooId, String codigoAviao, Timestamp partida, Timestamp chegada, Integer totalAssentos, String status, String origem, String destino, float valorAssento, boolean economica, boolean executiva, boolean primeira, Integer qtdAssentoPrimeira, Integer qtdAssentoExecutiva, Integer qtdAssentoEconomica, float precoAssentoPrimeira, float precoAssentoExecutiva, float precoAssentoEconomica) {
         this.vooId = vooId;
         this.codigoAviao = codigoAviao;
         this.partida = partida;
@@ -39,70 +51,16 @@ public class Voo implements Serializable {
         this.status = status;
         this.origem = origem;
         this.destino = destino;
-    }
-
-    public long getVooId() {
-        return vooId;
-    }
-
-    public void setVooId(long vooId) {
-        this.vooId = vooId;
-    }
-
-    public String getCodigoAviao() {
-        return codigoAviao;
-    }
-
-    public void setCodigoAviao(String codigoAviao) {
-        this.codigoAviao = codigoAviao;
-    }
-
-    public LocalDate getPartida() {
-        return partida;
-    }
-
-    public void setPartida(LocalDate partida) {
-        this.partida = partida;
-    }
-
-    public LocalDate getChegada() {
-        return chegada;
-    }
-
-    public void setChegada(LocalDate chegada) {
-        this.chegada = chegada;
-    }
-
-    public Integer getTotalAssentos() {
-        return totalAssentos;
-    }
-
-    public void setTotalAssentos(Integer totalAssentos) {
-        this.totalAssentos = totalAssentos;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getOrigem() {
-        return origem;
-    }
-
-    public void setOrigem(String origem) {
-        this.origem = origem;
-    }
-
-    public String getDestino() {
-        return destino;
-    }
-
-    public void setDestino(String destino) {
-        this.destino = destino;
+        this.valorAssento = valorAssento;
+        this.economica = economica;
+        this.executiva = executiva;
+        this.primeira = primeira;
+        this.qtdAssentoPrimeira = qtdAssentoPrimeira;
+        this.qtdAssentoExecutiva = qtdAssentoExecutiva;
+        this.qtdAssentoEconomica = qtdAssentoEconomica;
+        this.precoAssentoPrimeira = precoAssentoPrimeira;
+        this.precoAssentoExecutiva = precoAssentoExecutiva;
+        this.precoAssentoEconomica = precoAssentoEconomica;
     }
 
     @Override

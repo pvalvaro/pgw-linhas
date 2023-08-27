@@ -9,8 +9,13 @@ import { VooService } from 'src/app/services/voo-service/voo.service';
   styleUrls: ['./alterar-voo.component.css']
 })
 export class AlterarVooComponent implements OnInit {
-
+  habilitaEco = true;
+  habilitaPri = true;
+habilitaEx = true
   id: number = 0;
+
+  isEcoChecked? = false;
+
   voo: Voo = new Voo();
   constructor(
     private vooService: VooService, 
@@ -21,9 +26,8 @@ export class AlterarVooComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.activeRoute.snapshot.params['id'];
 
-    this.vooService.recuperarVooId(this.id).subscribe(resultado => {
-      this.voo = resultado;
-    }, error => console.log(error));
+    const objetoArmazenado = sessionStorage.getItem('voo');
+    this.voo = objetoArmazenado !== null ? JSON.parse(objetoArmazenado) : new Voo();
   }
 
   alterarVoo(){
@@ -34,7 +38,35 @@ export class AlterarVooComponent implements OnInit {
   }
 
   recuperarListaVoos(){
-    this.router.navigate(['/listar']);
+    this.router.navigate(['/adicionar']);
   }
 
+  doSomething(event:any, classe?:any){
+    switch (classe) {
+      case 'Economica':
+        this.voo.economica = event.target.checked==true ? classe : null;
+        this.habilitaEco = this.voo.economica ? false:true;
+        break;
+      case 'Primeira':
+         this.voo.primeira = event.target.checked==true ? classe : null;
+         this.habilitaPri = this.voo.primeira ? false:true;
+        break;
+      case 'Executiva':
+         this.voo.executiva = event.target.checked==true ? classe : null;
+         this.habilitaEx = this.voo.executiva ? false:true;
+        break;
+      default:
+        break;
+    }
+  }
+  contadorAssentos?:any;
+  onSelectBlurTotalAssento() {
+    this.contadorAssentos = this.voo.totalAssentos;
+  }
+
+  onSelectBlurAssentos(assento?:any) {
+    this.contadorAssentos -= assento;
+    if (this.contadorAssentos < 0)
+      alert('Total de Assentos excedido');
+  }
 }

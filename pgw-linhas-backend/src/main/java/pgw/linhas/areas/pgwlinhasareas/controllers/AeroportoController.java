@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/pwg-linhas-aereas")
+@RequestMapping("/pwg-linhas-aereas/aeroportos")
 public class AeroportoController {
     final AeroportoService aeroportoService;
 
@@ -23,11 +23,8 @@ public class AeroportoController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> cadastrarAeroporto(@RequestBody @Valid AeroportoDto aeroportoDto){
-        /*if(aeroportoService.existeCodigoIATA(aeroportoDto.getCodigoIATA())){
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Aeroporto já cadastrado");
-        }*/
-        return ResponseEntity.status(HttpStatus.CREATED).body(aeroportoService.cadastrarAeroporto(aeroportoDto));
+    public ResponseEntity<Object> cadastrarAeroporto(@RequestBody List<AeroportoDto> aeroportoDtoList){
+        return ResponseEntity.status(HttpStatus.CREATED).body(aeroportoService.cadastrarAeroporto(aeroportoDtoList));
     }
 
     @GetMapping

@@ -6,6 +6,6 @@ import pgw.linhas.areas.pgwlinhasareas.models.Aeroporto;
 import java.util.List;
 
 public interface AeroportoService {
-    Aeroporto cadastrarAeroporto(AeroportoDto aeroportoDto);
+    List<Aeroporto> cadastrarAeroporto(List<AeroportoDto> aeroportoDtoList);
     List<AeroportoDto> recuperarAeroportos();
 }

@@ -46,7 +46,7 @@
                             </div>
                             <div class="form-group col-md-6">
                               <label for="tipoclasse">Tipo de Classe</label>
-                                <select class="custom-select mr-sm-2" name="tipoclasse" [(ngModel)]="passagem.classeEscolhida" (blur)="onSelectBlrClasse()">
+                                <select class="custom-select mr-sm-2" name="tipoclasse" [(ngModel)]="passagem.classeEscolhida">
                                     <option value="Economica">Economica</option>
                                     <option value="Primeira">Primeira</option>
                                     <option value="Executiva">Executiva</option>
@@ -76,14 +76,13 @@
                         
                         <div *ngIf="!isZerado">
                             <h4>Dados do Passageiro</h4>
-                          <div class="form-row">
+                          <div class="form-row" *ngFor="let index of getCountArray()">
                             <div class="form-group col-md-12">
                                 <label for="nomepassa">Nome</label>
                                 <input
                                     type="text"
                                     class="form-control"
                                     id="nomepassa"
-                                    required
                                     [(ngModel)]="passagem.passageiroNome"
                                     name="nomepassa"
                                     placeholder="Nome Completo"
@@ -129,111 +128,4 @@
             </div>
         </div>
     </div>
-</div>
-
-<div class="row" *ngIf="!habilitarFormCompra">
-    <div class="card col-md-6 offset-md-3 offset-md-3">
-        <h3 class="text-center"> Localizar Passagem </h3>
-        <div class="row">
-            <div class="card-body">
-                <div>
-                    <form (ngSubmit)="pesquisarPassageiro()">
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="dataNascimento">CPF do Comprador</label>
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="assentosCa"
-                                    [(ngModel)]="termoPesquisaCpf"
-                                    name="assentosCa" placeholder="cpf"
-                                />
-                            </div>
-                            <div class="form-group col-md-6" *ngIf="isADMIN">
-                                <label for="dataNascimento">Codigo Voo</label>
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="assentosCa"
-                                    [(ngModel)]="termoPesquisaCodigo"
-                                    name="assentosCa" placeholder="codigo voo"
-                                />
-                            </div>
-                            
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-2">
-                                <button class="btn btn-primary" type="submit">Pesquisar</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div *ngIf="!listaPassageirosZerada">
-    <div class = "row">
-        <h2> Passageiros </h2>
-    </div>
-
-    <table class = "table table-striped table-bordered">
-        <thead>
-            <tr>
-                <th> Nome</th>
-                <th> Data Nascimento </th>
-                <th> CPF </th>
-                <th> Ações </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor = "let passageiro of listaPassageiros" >
-                <td> {{ passageiro.localizador }} </td>
-                <td> {{ passageiro.passageiroNome }} </td>
-                <td> {{ passageiro.codigoVoo }} </td>
-                <td> {{ passageiro.origem }} </td>
-                <td> {{ passageiro.destino }} </td>
-                <td> {{ passageiro.qtdBagagemExtra }} </td>
-                <td>
-                    <button  class = "btn btn-primary"> Cancelar</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-
-<div *ngIf="!listaPassagensZerada">
-    <div class = "row">
-        <h2> Passagens </h2>
-    </div>
-
-    <table class = "table table-striped table-bordered">
-        <thead>
-            <tr>
-                <th> Localizador </th>
-                <th> Nome do Passageiro </th>
-                <th> Voo</th>
-                <th> Origem </th>
-                <th> Destino </th>
-                <th> Bagagem Extra</th>
-                <th> Status</th>
-                <th *ngIf="isADMIN"> Ação </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor = "let passagem of listaPassagens" >
-                <td> {{ passagem.localizador }} </td>
-                <td> {{ passagem.passageiroNome }} </td>
-                <td> {{ passagem.codigoVoo }} </td>
-                <td> {{ passagem.origem }} </td>
-                <td> {{ passagem.destino }} </td>
-                <td> {{ passagem.qtdBagagemExtra }} </td>
-                <td> {{ passagem.statusPassagem }} </td>
-                <td *ngIf="isADMIN">
-                    <button  (click) = "cancelarCompra(passagem)" class = "btn btn-danger" style="margin-left: 10px"> Cancelar</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
 </div>

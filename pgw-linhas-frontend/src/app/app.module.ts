@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
@@ -17,6 +16,8 @@ import { PassagemResumoComponent } from './components/pages/passagem-resumo/pass
 import { HomeComponent } from './components/pages/home/home.component';
 import { LoginComponent } from './components/pages/login/login.component';
 import { MenuComponent } from './components/pages/menu/menu.component';
+import { AeroportosComponent } from './components/pgw-voo/aeroportos/aeroportos.component';
+import { ConsultarPassagemComponent } from './components/passagens/consultar-passagem/consultar-passagem.component';
 
 @NgModule({
   declarations: [
@@ -30,15 +31,12 @@ import { MenuComponent } from './components/pages/menu/menu.component';
     PassagemResumoComponent,
     HomeComponent,
     LoginComponent,
-    MenuComponent
+    MenuComponent,
+    AeroportosComponent,
+    ConsultarPassagemComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

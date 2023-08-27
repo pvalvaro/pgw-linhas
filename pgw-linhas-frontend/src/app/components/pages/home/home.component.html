@@ -9,21 +9,33 @@
                         <br/>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="classe">Origem</label>
-                            <select class="custom-select mr-sm-2" [(ngModel)]="home.origem" name="classe" (blur)="onSelectBlur()">
-                                <option value="Rio de Janeiro (RJ) - GIG">Rio de Janeiro (RJ) - GIG</option>
-                                <option value="Salvador(BA)-SSA">Salvador(BA)-SSA</option>
-                                <option value="Campinas(SP) - VCP">Campinas(SP) - VCP</option>
-                            </select>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="classe">Destino</label>
-                            <select class="custom-select mr-sm-2" [(ngModel)]="home.destino" name="classe" (blur)="onSelectBlur()">
-                                <option value="Rio de Janeiro (RJ) - GIG">Rio de Janeiro (RJ) - GIG</option>
-                                <option value="Salvador(BA)-SSA">Salvador(BA)-SSA</option>
-                                <option value="Campinas(SP) - VCP">Campinas(SP) - VCP</option>
-                            </select>
-                            </div>
+                                <label for="classe">Aeroporto de Origem</label>
+                                <select
+                                  class="custom-select mr-sm-2"
+                                  [(ngModel)]="home.origem"
+                                  name="classe"
+                                  (blur)="onSelectBlur()"
+                                >
+                                  <option value="Selecione...">Selecione...</option>
+                                  <option *ngFor="let aeroporto of aeroportos">
+                                    {{ aeroporto.cidadeNome }}-{{ aeroporto.codigoIATA }}
+                                  </option>
+                                </select>
+                              </div>
+                              <div class="form-group col-md-6">
+                                <label for="classe">Aeroporto de Destino</label>
+                                <select
+                                  class="custom-select mr-sm-2"
+                                  [(ngModel)]="home.destino"
+                                  name="classe"
+                                  (blur)="onSelectBlur()"
+                                >
+                                  <option value="Selecione...">Selecione...</option>
+                                  <option *ngFor="let aeroporto of aeroportos">
+                                    {{ aeroporto.cidadeNome }}-{{ aeroporto.codigoIATA }}
+                                  </option>
+                                </select>
+                              </div>
 
                             <div class="form-group col-md-6">
                               <label for="dataNascimento">Partida</label>
@@ -36,6 +48,7 @@
                                     name="partida"
                                 />
                             </div>
+                            
                             
                         </div>
                         <div class="form-row">
@@ -75,8 +88,8 @@
             <tbody>
                 <tr *ngFor = "let voo of voos">
                     <td> {{ voo.codigoAviao }} </td>
-                    <td> {{ voo.partida }} </td>
-                    <td> {{ voo.chegada }} </td>
+                    <td> {{ voo.partida | date:'dd/MM/yyyy' }} - {{voo.horaPartida}} </td>
+                    <td> {{ voo.chegada | date:'dd/MM/yyyy' }} - {{voo.horaChegada}} </td>
                     <td> {{ voo.totalAssentos }} </td>
                     <td *ngIf="!isADMIN">
                         <button  (click) = "comprar((voo))" class = "btn btn-primary"> Comprar</button>

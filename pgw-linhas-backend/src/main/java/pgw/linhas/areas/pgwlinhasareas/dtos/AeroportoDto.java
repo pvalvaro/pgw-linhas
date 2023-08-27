@@ -1,13 +1,15 @@
 package pgw.linhas.areas.pgwlinhasareas.dtos;
 
+import lombok.Data;
 import pgw.linhas.areas.pgwlinhasareas.models.Aeroporto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+@Data
 public class AeroportoDto {
     @NotBlank
-    @Size(max = 70)
+    @Size(max = 150)
     private String aeroportoNome;
     @NotBlank
     @Size(max = 5)
@@ -19,36 +21,7 @@ public class AeroportoDto {
     @Size(max = 30)
     private String estadoNome;
 
-    public String getAeroportoNome() {
-        return aeroportoNome;
-    }
-
-    public void setAeroportoNome(String aeroportoNome) {
-        this.aeroportoNome = aeroportoNome;
-    }
-
-    public String getCodigoIATA() {
-        return codigoIATA;
-    }
-
-    public void setCodigoIATA(String codigoIATA) {
-        this.codigoIATA = codigoIATA;
-    }
-    public String getCidadeNome() {
-        return cidadeNome;
-    }
-
-    public void setCidadeNome(String cidadeNome) {
-        this.cidadeNome = cidadeNome;
-    }
-    public String getEstadoNome() {
-        return estadoNome;
-    }
-    public void setEstadoNome(String estadoNome) {
-        this.estadoNome = estadoNome;
-    }
-
-    public static AeroportoDto convertAeroportoToDTO(Aeroporto aeroporto){
+     public static AeroportoDto convertAeroportoToDTO(Aeroporto aeroporto){
         AeroportoDto aeroportoDto = new AeroportoDto();
         aeroportoDto.setAeroportoNome(aeroporto.getAeroportoNome());
         aeroportoDto.setCidadeNome(aeroporto.getCidadeNome());

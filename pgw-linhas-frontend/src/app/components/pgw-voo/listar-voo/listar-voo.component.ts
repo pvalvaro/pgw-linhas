@@ -29,7 +29,7 @@ export class ListarVooComponent implements OnInit {
       });
   }
 
-  alterarVoo(id?: number){
+  alterarVoo(id?: number, voo?:Voo){
     this.router.navigate(['alterar-voo', id]);
   }
 

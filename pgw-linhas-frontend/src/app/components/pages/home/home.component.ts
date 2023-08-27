@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { Home } from 'src/app/models/home.model';
 import { VooService } from 'src/app/services/voo-service/voo.service';
 import { Voo } from 'src/app/models/voo.model';
+import { AeroportoService } from 'src/app/services/aeroporto/aeroporto.service';
+import { Aeroporto } from 'src/app/models/aeroporto.model';
 
 @Component({
   selector: 'app-home',
@@ -14,23 +16,26 @@ export class HomeComponent implements OnInit {
   home:Home = {
     origem: '',
     destino: '',
-    datapartida: new Date()
+    datapartida: ''
   }
   
   voos?: Voo[];
   vooBusca?: Voo;
   listaAeroportos?:[];
+  aeroportos?: Aeroporto[];
 
   isADMIN = false;
   logar = false;
 
-  constructor(private vooService: VooService,
+  constructor(private vooService: VooService, 
+    private aeroportoService: AeroportoService,
      private router: Router) { }
 
     
    ngOnInit(): void {
      const objetoArmazenado = sessionStorage.getItem('Role_ADMIN');
      this.isADMIN = objetoArmazenado !== null ? JSON.parse(objetoArmazenado) : false;
+     this.recuperarAeroportos();
   }
 
   onSelectBlur() {
@@ -39,9 +44,11 @@ export class HomeComponent implements OnInit {
   }
 
   validacoes() {
-    this.home.origem === '' ? alert('Local de Origem não informado') : true;
-    this.home.destino === '' ? alert('Local de Destino não informado') : true;
-    this.home.datapartida === null ? alert('Data não informada') : true;
+    this.home.origem === '' ? alert('Local de Origem não informado') : false;
+    this.home.destino === '' ? alert('Local de Destino não informado') : false;
+    this.home.datapartida === '' ? alert('Data não informada') : false;
+    
+    return true;
   }
 
   pesquisarVoos(){
@@ -51,20 +58,31 @@ export class HomeComponent implements OnInit {
       datapartida:this.home.datapartida
     };  
     
-    this.validacoes();
-
+    
+if(this.validacoes()){
     this.vooService.recuperarVoos().subscribe({
       next:(resultado) => {
         let resultFiltro = [];
         for(let vo of resultado){
-          if(filtro.datapartida === vo.partida)
+          const horaMinutoPartida = vo.partida.slice(11, 16);
+          const horaMinutoChegada = vo.chegada.slice(11, 16);
+          
+          const dataSemHoras = vo.partida.slice(0, 10);
+
+          vo.horaPartida = horaMinutoPartida;
+          vo.horaChegada = horaMinutoChegada;
+          if(filtro.datapartida === dataSemHoras)
             resultFiltro.push(vo);
         }
-        if(resultFiltro)  
+        if(resultFiltro.length > 0){  
           this.voos = resultFiltro;
+        }else{
+          alert("Nenhum voo programado para essa data");
+        }
       },
       error:(e) => console.log(e)
     });
+  }
   }
   comprar(voo: Voo){
     voo.destino = this.home.destino;
@@ -72,8 +90,18 @@ export class HomeComponent implements OnInit {
     window.sessionStorage.setItem('voo', JSON.stringify(voo));
     this.router.navigate(['comprar']);
   }
+
+  recuperarAeroportos() {
+    this.aeroportoService.recuperarAeroportos().subscribe({
+      next: (data) => {
+        this.aeroportos = data;
+      },
+      error: (e) => console.log(e),
+    });
+  }
+
   infoPassagens(){
-    this.router.navigate(['comprar']);
+    this.router.navigate(['info-passagens']);
   }
   infoVoos(){
     this.router.navigate(['adicionar']);
@@ -82,5 +110,6 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['preco']);
   }
   infoAeroporto(){
+    this.router.navigate(['aeroporto']);
   }
 }

@@ -9,7 +9,8 @@ import { ComprarPassagemComponent } from './components/pages/comprar-passagem/co
 import { PassagemResumoComponent } from './components/pages/passagem-resumo/passagem-resumo.component';
 import { HomeComponent } from './components/pages/home/home.component';
 import { LoginComponent } from './components/pages/login/login.component';
-import { MenuComponent } from './components/pages/menu/menu.component';
+import { AeroportosComponent } from './components/pgw-voo/aeroportos/aeroportos.component';
+import { ConsultarPassagemComponent } from './components/passagens/consultar-passagem/consultar-passagem.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
@@ -20,7 +21,9 @@ const routes: Routes = [
   {path: 'alterar-voo/:id', component: AlterarVooComponent},
   {path: 'preco', component: PrecoComponent},
   {path: 'comprar', component: ComprarPassagemComponent},
-  {path: 'passagem-resumo', component: PassagemResumoComponent}
+  {path: 'info-passagens', component: ConsultarPassagemComponent},
+  {path: 'passagem-resumo', component: PassagemResumoComponent},
+  {path: 'aeroporto', component: AeroportosComponent}
 ];
 
 @NgModule({
