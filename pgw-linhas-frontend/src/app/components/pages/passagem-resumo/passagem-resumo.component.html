@@ -73,18 +73,25 @@
                     </div>
                     
                     <div class="form-group col-md-4">
-                        <span>Bag. Extra (10%)*: R$ {{valorBagagemExtra}} </span>
+                        <span>Bag. Extra (10%)*: R$ {{passagem.valorBagagemExtra}} </span>
                     </div>
                     <div class="form-group col-md-4">
-                        <span>Assento: R$ {{valorAssento}}</span>
+                        <span>Assento: R$ {{passagem.valorAssento}}</span>
                     </div> 
                     <div class="form-group col-md-4">
-                        <span>Total: R$ {{total}}</span>
+                        <span>Total: R$ {{passagem.totalViagem}}</span>
                     </div>
                 </div>
-                <form (ngSubmit)="finalizaCompra()">
-                    <button class="btn btn-primary" type="submit">Finalizar</button>
-                </form>
+                <div class="form-row">
+                    <form (ngSubmit)="finalizaCompra()">
+                        <div class="form-group col-md-4">
+                            <button class="btn btn-success" type="submit">Finalizar</button>
+                        </div>
+                    </form>
+                    <div class="form-group col-md-4">
+                        <button (click)="cancelar()" class="btn btn-danger" type="submit">Cancelar</button>
+                      </div>
+                  </div>
             </div>
         </div>
     </div>

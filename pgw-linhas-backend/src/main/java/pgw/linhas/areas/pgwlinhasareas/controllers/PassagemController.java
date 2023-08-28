@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import pgw.linhas.areas.pgwlinhasareas.dtos.PassagemDto;
 import pgw.linhas.areas.pgwlinhasareas.models.Passagem;
 import pgw.linhas.areas.pgwlinhasareas.services.PassagemService;
+import pgw.linhas.areas.pgwlinhasareas.services.VooService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -16,14 +17,18 @@ import java.util.Optional;
 @RequestMapping("/pwg-linhas-aereas/passagem")
 public class PassagemController {
     final PassagemService passagemService;
+    final VooService vooService;
 
-    public PassagemController(PassagemService passagemService) {
+    public PassagemController(PassagemService passagemService, VooService vooService) {
         this.passagemService = passagemService;
+        this.vooService = vooService;
     }
 
     @PostMapping
     public ResponseEntity<Object> comprarPassagem(@RequestBody PassagemDto passagemDto){
-        return ResponseEntity.status(HttpStatus.CREATED).body(passagemService.comprarPassagem(passagemDto));
+        Passagem passagemComprada = passagemService.comprarPassagem(passagemDto);
+        vooService.atualizarInFormacoesVoo(passagemComprada);
+        return ResponseEntity.status(HttpStatus.CREATED).body(passagemComprada);
     }
 
     @GetMapping

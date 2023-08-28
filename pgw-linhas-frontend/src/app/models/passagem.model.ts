@@ -20,4 +20,7 @@ export class Passagem{
     dataChegada?: Date;
     codigoVoo?:String;
     idVoo?: number;
+    valorAssento?:number;
+    valorBagagemExtra?:number;
+    identificBagagem?:string;
 }

@@ -36,7 +36,7 @@ public class PassagemDto {
     private Integer qtdBagagemExtra;
 
     private String statusPassagem;
-
+    private String identificBagagem;
     private Timestamp dataPartida;
     private Timestamp dataChegada;
     private Integer qtdPassagens;

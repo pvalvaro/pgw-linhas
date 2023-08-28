@@ -15,7 +15,7 @@ public class Passagem implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long passagemId;
-    @Column(nullable = false, length = 15, unique = true)
+    @Column(nullable = false, length = 15)
     private String localizador;
     @Column(nullable = false, length = 70)
     private String passageiroNome;
@@ -47,5 +47,6 @@ public class Passagem implements Serializable {
     private Timestamp dataPartida;
     private Timestamp dataChegada;
     private Integer qtdPassagens;
+    private String identificBagagem;
 
 }

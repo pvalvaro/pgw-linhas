@@ -1,6 +1,8 @@
 package pgw.linhas.areas.pgwlinhasareas.services;
 
+import pgw.linhas.areas.pgwlinhasareas.dtos.PassagemDto;
 import pgw.linhas.areas.pgwlinhasareas.dtos.VooDto;
+import pgw.linhas.areas.pgwlinhasareas.models.Passagem;
 import pgw.linhas.areas.pgwlinhasareas.models.Voo;
 
 import java.util.List;
@@ -12,5 +14,7 @@ public interface VooService {
     List<VooDto> recuperarVoos();
     Optional<Voo> findById(long id);
     Voo cancelar(VooDto vooDto);
+
+    void atualizarInFormacoesVoo(Passagem passagem);
 
 }

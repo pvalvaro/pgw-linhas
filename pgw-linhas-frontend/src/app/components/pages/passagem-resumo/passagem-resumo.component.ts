@@ -10,68 +10,85 @@ import { VooService } from 'src/app/services/voo-service/voo.service';
 @Component({
   selector: 'app-passagem-resumo',
   templateUrl: './passagem-resumo.component.html',
-  styleUrls: ['./passagem-resumo.component.css']
+  styleUrls: ['./passagem-resumo.component.css'],
 })
 export class PassagemResumoComponent implements OnInit {
+  passagem: Passagem = new Passagem();
+  precos?: Preco[];
+  valorBagagemExtra?: number;
+  valorAssento?: number;
+  total?: number;
 
-  passagem:Passagem = new Passagem;
-  precos?:Preco[];
-  valorBagagemExtra?:number;
-  valorAssento?:number;
-  total?:number;
+  vooEscolhido?: Voo;
+  id: any;
 
-  vooEscolhido?:Voo;
-
-  constructor(private passagemService: PassagemService, private precoService: PrecoService, private vooService: VooService,
-    private router: Router, 
-    private activeRoute: ActivatedRoute) { }
+  constructor(
+    private passagemService: PassagemService,
+    private precoService: PrecoService,
+    private vooService: VooService,
+    private router: Router,
+    private activeRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     const objetoArmazenado = sessionStorage.getItem('passagem');
-    this.passagem = objetoArmazenado !== null ? JSON.parse(objetoArmazenado) : new Passagem();
+    this.passagem =
+      objetoArmazenado !== null ? JSON.parse(objetoArmazenado) : new Passagem();
 
     const vooArmazenado = sessionStorage.getItem('voo');
-    this.vooEscolhido = vooArmazenado !== null ? JSON.parse(vooArmazenado) : new Voo();
+    this.vooEscolhido =
+      vooArmazenado !== null ? JSON.parse(vooArmazenado) : new Voo();
+    this.id = this.vooEscolhido?.vooId;
 
-    this.recuperarPrecos();
   }
-  recuperarPrecos():void{
-    this.precoService.recuperarPrecos()
-      .subscribe({
-        next:(resultado) => {
-          resultado.forEach(element => {
-              if(element.classeNome === this.passagem.classeEscolhida){
-                this.valorAssento = element.valorAssento;
-                this.valorBagagemExtra = this.passagem.qtdBagagemExtra !== 0 ? this.calcularValor(element.valorAssento): 0;
-                
-                if(this.valorAssento && this.passagem.qtdPassagens)
-                  this.total = (this.valorAssento + this.valorBagagemExtra) * this.passagem.qtdPassagens;
-              }
-            });
+  recuperarPrecos(): void {
+    this.precoService.recuperarPrecos().subscribe({
+      next: (resultado) => {
+        resultado.forEach((element) => {
+          if (element.classeNome === this.passagem.classeEscolhida) {
+            this.valorAssento = element.valorAssento;
+            this.valorBagagemExtra =
+              this.passagem.qtdBagagemExtra !== 0
+                ? this.calcularValor(element.valorAssento)
+                : 0;
 
-          },
-        error:(e) => console.log(e)
-      });
+            if (this.valorAssento && this.passagem.qtdPassagens)
+              this.total =
+                (this.valorAssento + this.valorBagagemExtra) *
+                this.passagem.qtdPassagens;
+          }
+        });
+      },
+      error: (e) => console.log(e),
+    });
   }
-  calcularValor(valorClass: any){
+  calcularValor(valorClass: any) {
     let valor: number = 0;
     let porc = valorClass * 0.1;
     return valor + porc;
   }
 
-  finalizaCompra(){
-    this.passagem.localizador = "PWG".concat(''+this.passagem.cpfPassageiro+'');
+  finalizaCompra() {
+    this.vooEscolhido;
+    this.passagem.localizador = 'PWG'.concat(
+      '' + this.passagem.cpfPassageiro + ''
+    );
+    this.passagem.identificBagagem = 'PWG-'.concat(
+      '' + this.passagem.cpfComprador + ''
+    );
     this.passagem.dataCompra = new Date();
     this.passagem.statusPassagem = 'Confirmado';
     this.passagem.totalViagem = this.total;
-    this.passagemService.comprarPassagem(this.passagem)
-    .subscribe({
-      next:(resultado) => {
-        console.log(resultado);
-        this.router.navigate(['home']);  
+    this.passagemService.comprarPassagem(this.passagem).subscribe({
+      next: (resultado) => {        
+        this.router.navigate(['home']);
+        alert('Passagem comprada com sucesso');
       },
-      error: (e) => console.error(e)
+      error: (e) => console.error(e),
     });
   }
- 
+
+  cancelar(){
+    this.router.navigate(['/home']);
+  }
 }

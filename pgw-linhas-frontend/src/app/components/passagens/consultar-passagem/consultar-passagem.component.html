@@ -52,31 +52,22 @@
                 <th> Nome</th>
                 <th> Data Nascimento </th>
                 <th> CPF </th>
-                <th> Ações </th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor = "let passageiro of listaPassageiros" >
-                <td> {{ passageiro.localizador }} </td>
                 <td> {{ passageiro.passageiroNome }} </td>
-                <td> {{ passageiro.codigoVoo }} </td>
-                <td> {{ passageiro.origem }} </td>
-                <td> {{ passageiro.destino }} </td>
-                <td> {{ passageiro.qtdBagagemExtra }} </td>
-                <td>
-                    <button  class = "btn btn-primary"> Cancelar</button>
-                </td>
+                <td> {{ passageiro.dataNascimentoPassageiro | date:'dd/MM/yyyy'}} </td>
+                <td> {{ passageiro.cpfPassageiro }} </td>
             </tr>
         </tbody>
     </table>
 </div>
 
 <div *ngIf="!listaPassagensZerada">
-    <div class = "row">
-        <h2> Passagens </h2>
-    </div>
-
-    <table class = "table table-striped table-bordered">
+    <div class="container">
+            <h2>Passagens</h2>
+    <table class="table">
         <thead>
             <tr>
                 <th> Localizador </th>
@@ -98,10 +89,13 @@
                 <td> {{ passagem.destino }} </td>
                 <td> {{ passagem.qtdBagagemExtra }} </td>
                 <td> {{ passagem.statusPassagem }} </td>
-                <td *ngIf="isADMIN">
-                    <button  (click) = "cancelarCompra(passagem)" class = "btn btn-danger" style="margin-left: 10px"> Cancelar</button>
+                <td >
+                    <button *ngIf="isADMIN"  (click) = "cancelarCompra(passagem)" class = "btn btn-danger" style="margin-left: 10px"> Cancelar</button>
+                    <button  (click) = "emitirVoucher(passagem)" class = "btn btn-success" style="margin-left: 10px"> Emitir Voucher</button>
+                    <button  (click) = "emitirEtiqueta(passagem)" class = "btn btn-success" style="margin-left: 10px"> Tiket Bagagem</button>
                 </td>
             </tr>
         </tbody>
     </table>
+    </div>
 </div>

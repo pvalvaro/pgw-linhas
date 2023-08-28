@@ -15,6 +15,7 @@ export class ConsultarPassagemComponent implements OnInit {
     nomeComprador: '',
     cpfComprador: '',
     emailComprador: '',
+    localizador: '',
     dataNascimentoPassageiro: new Date(),
     classeEscolhida: '',
     qtdBagagemExtra: 0,
@@ -84,26 +85,6 @@ export class ConsultarPassagemComponent implements OnInit {
     sessionStorage.removeItem('voo');
     this.habilitarFormCompra = false;
     this.router.navigate(['passagem-resumo']);  
-  }/*
-
-  calcularValores(){
-    let valorBagagemExtra = 0;
-    let totalBagagemExtra = 0;
-    if(this.vooEscolhido?.economica === this.passagem.classeEscolhida){
-      valorBagagemExtra = this.passagem.qtdBagagemExtra !== 0 ? this.calcularValor(this.vooEscolhido?.precoAssentoEconomica): 0;
-      
-      if(this.passagem.qtdBagagemExtra)
-        totalBagagemExtra = this.passagem.qtdBagagemExtra * valorBagagemExtra;
-        this.passagem.totalViagem = this.vooEscolhido.precoAssentoEconomica * this.passagem.qtdPassagens + totalBagagemExtra
-    }
-
-
-  }
-      */
-  calcularValor(valorClass: any){
-    let valor = valorClass;
-    let porc = valorClass * 0.1;
-    return valor + porc;
   }
 
   onSelectBlur() {
@@ -153,6 +134,18 @@ export class ConsultarPassagemComponent implements OnInit {
       this.limparForm();
   }
 
+
+  emitirVoucher(passagem:Passagem){
+    window.sessionStorage.setItem('voucher', JSON.stringify(passagem));
+    sessionStorage.removeItem('ticket');
+    this.router.navigate(['voucher']);
+  }
+  emitirEtiqueta(passagem:Passagem){
+    sessionStorage.removeItem('voucher');
+    window.sessionStorage.setItem('ticket', JSON.stringify(passagem));
+    this.router.navigate(['voucher']);
+  }
+
   cancelarCompra(passagem:Passagem){
     passagem.statusPassagem = "Cancelado";
     this.listaPassageiros;
@@ -168,8 +161,9 @@ export class ConsultarPassagemComponent implements OnInit {
   limparForm(){
     this.passagem = {
       nomeComprador: '',
-      cpfComprador: '',
-      emailComprador: '',
+    cpfComprador: '',
+    emailComprador: '',
+    localizador: '',
       dataNascimentoPassageiro: new Date(),
       classeEscolhida: '',
       qtdBagagemExtra: 0,

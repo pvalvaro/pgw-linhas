@@ -59,19 +59,19 @@ export class HomeComponent implements OnInit {
     };  
     
     
-if(this.validacoes()){
+//if(this.validacoes()){
     this.vooService.recuperarVoos().subscribe({
       next:(resultado) => {
         let resultFiltro = [];
         for(let vo of resultado){
-          const horaMinutoPartida = vo.partida.slice(11, 16);
+         /* const horaMinutoPartida = vo.partida.slice(11, 16);
           const horaMinutoChegada = vo.chegada.slice(11, 16);
           
           const dataSemHoras = vo.partida.slice(0, 10);
 
           vo.horaPartida = horaMinutoPartida;
-          vo.horaChegada = horaMinutoChegada;
-          if(filtro.datapartida === dataSemHoras)
+          vo.horaChegada = horaMinutoChegada;*/
+          if(filtro.datapartida === vo.partida)
             resultFiltro.push(vo);
         }
         if(resultFiltro.length > 0){  
@@ -82,7 +82,7 @@ if(this.validacoes()){
       },
       error:(e) => console.log(e)
     });
-  }
+  //}
   }
   comprar(voo: Voo){
     voo.destino = this.home.destino;

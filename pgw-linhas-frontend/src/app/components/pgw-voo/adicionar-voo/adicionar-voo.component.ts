@@ -117,10 +117,10 @@ habilitaEx = true;
     }*/
     const vooNovo = {
       codigoAviao: this.voo.codigoAviao,
-      dataPartida: this.dataHoraPartida,
-      dataChegada: this.dataHoraChegada,
-      horaPartida: this.dataHoraPartida,
-      horaChegada: this.dataHoraPartida,
+      partida: this.voo.partida,
+      chegada: this.voo.chegada,
+      horaPartida: this.voo.horaPartida,
+      horaChegada: this.voo.horaChegada,
       totalAssentos: this.voo.totalAssentos,
       status: 'Confirmado',
       destino: this.voo.destino,

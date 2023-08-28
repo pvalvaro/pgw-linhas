@@ -18,6 +18,7 @@ import { LoginComponent } from './components/pages/login/login.component';
 import { MenuComponent } from './components/pages/menu/menu.component';
 import { AeroportosComponent } from './components/pgw-voo/aeroportos/aeroportos.component';
 import { ConsultarPassagemComponent } from './components/passagens/consultar-passagem/consultar-passagem.component';
+import { EmitirVoucherComponent } from './components/pages/emitir-voucher/emitir-voucher.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { ConsultarPassagemComponent } from './components/passagens/consultar-pas
     MenuComponent,
     AeroportosComponent,
     ConsultarPassagemComponent,
+    EmitirVoucherComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],
